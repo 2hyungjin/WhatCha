@@ -9,3 +9,4 @@ const val IMG_POSTER_URL =
 const val IMG_URL =
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYWhtJ7Hh1uYgfp-g2zyttV7h8pwtgJO3h8g&usqp=CAU"
 val TITLE = listOf<String>("왓챠 최고 인기작", "다시 보기", "보고 싶어요 한 작품", "새로 올라온 작품", "요즘 핫한")
+const val YOUTUBE_KEY="IrVFP1nxUao"

@@ -10,4 +10,5 @@ class Time {
     val dateNow=dateFormat.format(date)
     fun getdateNow()=(dateNow.toInt()-1).toString()
     fun getdateAYearAgo(year: Int)=(dateNow.toInt()-(10000*year)).toString()
+
 }

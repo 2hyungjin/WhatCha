@@ -15,5 +15,8 @@ val myModule= module {
             .build()
             .create(MovieRetrofit::class.java)
     }
+    viewModel {
+        MyViewModel()
+    }
 
 }

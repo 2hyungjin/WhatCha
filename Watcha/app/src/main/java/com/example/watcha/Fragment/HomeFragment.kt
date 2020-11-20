@@ -14,6 +14,7 @@ import com.example.watcha.Adapter.OuterAdapter
 import com.example.watcha.R
 import com.example.watcha.Time
 import com.example.watcha.activity.DetailActivity
+import com.example.watcha.api.DailyBoxOffice
 import com.example.watcha.api.Movie
 import com.example.watcha.api.MovieRetrofit
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -26,6 +27,8 @@ import retrofit2.Response
 
 class HomeFragment : Fragment() {
     val list = arrayListOf<Movie>()
+    val movie= arrayListOf<DailyBoxOffice>()
+    var loadCounter=false
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -36,10 +39,35 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val retrofit: MovieRetrofit by inject()
-        loadDB(retrofit)
+        setAdapter()
+        if (loadCounter==false){
+            loadDB(retrofit)
+        }
     }
-
+    fun setAdapter(){
+        setMainAdapter()
+        setSubAdapter()
+    }
+    fun setMainAdapter(){
+        rv_main.adapter = MainAdapter(
+            movie,
+            onClick = { s: String, s1: String ->
+                toDetail(s, s1)
+            })
+        rv_main.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        val snapHelper = PagerSnapHelper()
+        snapHelper.attachToRecyclerView(rv_main)
+    }
+    fun setSubAdapter(){
+        rv_sub.adapter = OuterAdapter(list,onClick = {title: String, img: String ->
+            toDetail(title,img)
+        })
+        rv_sub.layoutManager = LinearLayoutManager(context)
+    }
     fun loadDB(retrofit: MovieRetrofit) {
+        Log.d("TAG","loadDB")
+        loadCounter=true
         getMain(retrofit)
         getSub(retrofit)
     }
@@ -47,19 +75,13 @@ class HomeFragment : Fragment() {
     fun getMain(retrofit: MovieRetrofit) {
         retrofit.getDailyList(Time().getdateNow()).enqueue(object : retrofit2.Callback<Movie> {
             override fun onResponse(call: Call<Movie>, response: Response<Movie>) {
-                rv_main.adapter = MainAdapter(
-                    response.body()!!.boxOfficeResult.dailyBoxOfficeList,
-                    onClick = { s: String, s1: String ->
-                        toDetail(s, s1)
-                    })
-                rv_main.layoutManager =
-                    LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-                val snapHelper = PagerSnapHelper()
-                snapHelper.attachToRecyclerView(rv_main)
+                for (dailyMovie in response.body()!!.boxOfficeResult.dailyBoxOfficeList){
+                    movie.add(dailyMovie)
+                }
+                rv_main.adapter!!.notifyDataSetChanged()
             }
 
             override fun onFailure(call: Call<Movie>, t: Throwable) {
-                Log.d("RETRO", "failed ${t.localizedMessage}")
             }
         })
     }
@@ -68,12 +90,7 @@ class HomeFragment : Fragment() {
         for (i in 1..5) {
             retrofit.getDailyList(Time().getdateAYearAgo(i)).enqueue(object : Callback<Movie> {
                 override fun onResponse(call: Call<Movie>, response: Response<Movie>) {
-                    Log.d("TAG", "$i " + response.body().toString())
                     list.add(response.body()!!)
-                    rv_sub.adapter = OuterAdapter(list,onClick = {title: String, img: String ->
-                        toDetail(title,img)
-                    })
-                    rv_sub.layoutManager = LinearLayoutManager(context)
                     rv_sub.adapter!!.notifyDataSetChanged()
                 }
 
