@@ -22,6 +22,8 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    androidExtensions { experimental = true }
+
 }
 dependencies {
     implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"

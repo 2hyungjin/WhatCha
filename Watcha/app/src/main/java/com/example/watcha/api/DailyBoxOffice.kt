@@ -1,8 +1,11 @@
 package com.example.watcha.api
 
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class DailyBoxOffice(
     val audiAcc: String,
     val audiChange: String,
@@ -22,4 +25,4 @@ data class DailyBoxOffice(
     val salesShare: String,
     val scrnCnt: String,
     val showCnt: String
-)
+):Parcelable

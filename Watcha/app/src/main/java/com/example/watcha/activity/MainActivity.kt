@@ -13,6 +13,7 @@ import com.example.watcha.Fragment.HomeFragment
 import com.example.watcha.MyViewModel
 import com.example.watcha.R
 import com.example.watcha.Time
+import com.example.watcha.api.DailyBoxOffice
 import com.example.watcha.api.Movie
 import com.example.watcha.api.MovieRetrofit
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -25,13 +26,14 @@ import retrofit2.Response
 
 class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener,
     BottomNavigationView.OnNavigationItemReselectedListener {
+    private val homeFragment=HomeFragment()
+    val mainList= arrayListOf<DailyBoxOffice>()
+    val subList= arrayListOf<Movie>()
+    private val bundle=Bundle()
     val retrofit: MovieRetrofit by inject()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.container, HomeFragment())
-            .commit()
         bottomNav.setOnNavigationItemSelectedListener(this)
         bottomNav.setOnNavigationItemReselectedListener(this)
         loadData()
@@ -44,9 +46,15 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         getMainData(retrofit, viewModel)
         getSubData(retrofit, viewModel)
         viewModel.getLoadCounter().observe(this, Observer {
-            if(it==5){
+            if(it==6){
                 progressBar.visibility=View.INVISIBLE
                 bottomNav.visibility=View.VISIBLE
+                bundle.putParcelableArrayList("mainList",mainList)
+                bundle.putParcelableArrayList("subList",subList)
+                homeFragment.arguments=bundle
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.container, homeFragment)
+                    .commit()
             }
         })
     }
@@ -55,8 +63,10 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         retrofit.getDailyList(Time().getdateNow()).enqueue(object : Callback<Movie> {
             override fun onResponse(call: Call<Movie>, response: Response<Movie>) {
                 for (dailyMovie in response.body()!!.boxOfficeResult.dailyBoxOfficeList) {
-                    viewModel.addMainMovie(dailyMovie)
+                    mainList.add(dailyMovie)
                 }
+                viewModel.cnt()
+
             }
 
             override fun onFailure(call: Call<Movie>, t: Throwable) {
@@ -68,7 +78,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         for (i in 1..5) {
             retrofit.getDailyList(Time().getdateAYearAgo(i)).enqueue(object : Callback<Movie> {
                 override fun onResponse(call: Call<Movie>, response: Response<Movie>) {
-                    viewModel.addSubMovie(response.body()!!)
+                    subList.add(response.body()!!)
                     viewModel.cnt()
                 }
 
@@ -83,14 +93,17 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         val fragmentManager = supportFragmentManager
         val homeFragment = HomeFragment()
         val exploreFragment = ExploreFragment()
-        val curFrag = fragmentManager.findFragmentById(R.id.container)
         when (item.itemId) {
             R.id.menu_home -> {
+//                bundle.putParcelableArrayList("mainList",mainList)
+//                bundle.putParcelableArrayList("subList",subList)
+                homeFragment.arguments=bundle
                 fragmentManager.beginTransaction().replace(R.id.container, homeFragment).commit()
                 return true
             }
 
             R.id.menu_explore -> {
+                exploreFragment.arguments=bundle
                 fragmentManager.beginTransaction().replace(R.id.container, exploreFragment).commit()
                 return true
             }
