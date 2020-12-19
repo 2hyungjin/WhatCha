@@ -9,10 +9,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import com.example.watcha.Adapter.ExploreHorizontalAdapter
 import com.example.watcha.R
-import com.example.watcha.api.Movie
-import com.example.watcha.api.YOUTUBE_KEY
+import com.example.watcha.data.Movie
+import com.example.watcha.data.YOUTUBE_KEY
 import kotlinx.android.synthetic.main.fragment_explore.*
-import kotlinx.android.synthetic.main.fragment_home.*
 
 class ExploreFragment : Fragment() {
     lateinit var list:ArrayList<Movie>

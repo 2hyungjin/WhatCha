@@ -1,7 +1,10 @@
 package com.example.watcha
 
-import com.example.watcha.api.BASE_URL
-import com.example.watcha.api.MovieRetrofit
+import androidx.room.Room
+import com.example.watcha.data.BASE_URL
+import com.example.watcha.data.MovieDatabase
+import com.example.watcha.data.MovieRetrofit
+import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -17,6 +20,9 @@ val myModule= module {
     }
     viewModel {
         MyViewModel()
+    }
+    single {
+       MovieDatabase.getInstance(androidContext())
     }
 
 }

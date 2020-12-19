@@ -8,16 +8,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import com.example.watcha.Adapter.OuterAdapter
 import com.example.watcha.MyViewModel
 import com.example.watcha.R
 import com.example.watcha.activity.DetailActivity
-import com.example.watcha.api.DailyBoxOffice
-import com.example.watcha.api.Movie
-import com.example.watcha.api.MovieRetrofit
+import com.example.watcha.data.DailyBoxOffice
+import com.example.watcha.data.Movie
+import com.example.watcha.data.MovieRetrofit
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.android.ext.android.inject
 

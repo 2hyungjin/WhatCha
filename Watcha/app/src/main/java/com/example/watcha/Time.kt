@@ -7,7 +7,9 @@ class Time {
     val now=System.currentTimeMillis() // 지금 시간을 Long 형식으로 가져옴
     val date= Date(now) //Date로 캐스팅
     val dateFormat= SimpleDateFormat("yyyyMMdd")
+    val nowFormat= SimpleDateFormat("yyyy-MM-dd")
     val dateNow=dateFormat.format(date)
+    fun getNow()=(nowFormat.format(date)).toString()
     fun getdateNow()=(dateNow.toInt()-1).toString()
     fun getdateAYearAgo(year: Int)=(dateNow.toInt()-(10000*year)).toString()
 

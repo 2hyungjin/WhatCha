@@ -5,20 +5,18 @@ import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.example.watcha.Fragment.ExploreFragment
 import com.example.watcha.Fragment.HomeFragment
+import com.example.watcha.Fragment.StarFragment
 import com.example.watcha.MyViewModel
 import com.example.watcha.R
 import com.example.watcha.Time
-import com.example.watcha.api.DailyBoxOffice
-import com.example.watcha.api.Movie
-import com.example.watcha.api.MovieRetrofit
+import com.example.watcha.data.DailyBoxOffice
+import com.example.watcha.data.Movie
+import com.example.watcha.data.MovieRetrofit
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.android.ext.android.inject
 import retrofit2.Call
 import retrofit2.Callback
@@ -93,10 +91,9 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         val fragmentManager = supportFragmentManager
         val homeFragment = HomeFragment()
         val exploreFragment = ExploreFragment()
+        val starFragment=StarFragment()
         when (item.itemId) {
             R.id.menu_home -> {
-//                bundle.putParcelableArrayList("mainList",mainList)
-//                bundle.putParcelableArrayList("subList",subList)
                 homeFragment.arguments=bundle
                 fragmentManager.beginTransaction().replace(R.id.container, homeFragment).commit()
                 return true
@@ -105,6 +102,10 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
             R.id.menu_explore -> {
                 exploreFragment.arguments=bundle
                 fragmentManager.beginTransaction().replace(R.id.container, exploreFragment).commit()
+                return true
+            }
+            R.id.menu_star->{
+                fragmentManager.beginTransaction().replace(R.id.container,starFragment).commit()
                 return true
             }
             else -> return false

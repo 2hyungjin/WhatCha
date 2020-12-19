@@ -40,7 +40,7 @@
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="100dp"
         android:text="이런 작품들은 어떠세요?"
         android:textSize="30dp"
         android:textStyle="bold" />

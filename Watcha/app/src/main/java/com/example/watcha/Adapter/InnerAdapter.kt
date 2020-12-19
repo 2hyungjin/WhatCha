@@ -1,6 +1,5 @@
 package com.example.watcha.Adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,9 +8,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.watcha.R
-import com.example.watcha.api.DailyBoxOffice
-import com.example.watcha.api.IMG_URL
-import com.example.watcha.api.Movie
+import com.example.watcha.data.DailyBoxOffice
+import com.example.watcha.data.IMG_URL
 import kotlinx.android.synthetic.main.rv_inner_item.view.*
 
 class InnerAdapter(

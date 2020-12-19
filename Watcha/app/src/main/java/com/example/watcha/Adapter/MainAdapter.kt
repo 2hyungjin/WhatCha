@@ -1,4 +1,3 @@
-import android.view.Display
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,9 +6,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.watcha.R
-import com.example.watcha.api.DailyBoxOffice
-import com.example.watcha.api.IMG_POSTER_URL
-import com.example.watcha.api.IMG_URL
+import com.example.watcha.data.DailyBoxOffice
+import com.example.watcha.data.IMG_POSTER_URL
 import kotlinx.android.synthetic.main.rv_inner_item.view.*
 
 class MainAdapter(val list :List<DailyBoxOffice>

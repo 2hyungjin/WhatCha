@@ -1,4 +1,4 @@
-package com.example.watcha.api
+package com.example.watcha.data
 
 import retrofit2.Call
 import retrofit2.http.GET

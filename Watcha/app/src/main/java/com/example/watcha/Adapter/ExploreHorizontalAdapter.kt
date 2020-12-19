@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.watcha.R
-import com.example.watcha.api.Movie
+import com.example.watcha.data.Movie
 import kotlinx.android.synthetic.main.explore_item.view.*
 
 class ExploreHorizontalAdapter(val list:ArrayList<Movie>):

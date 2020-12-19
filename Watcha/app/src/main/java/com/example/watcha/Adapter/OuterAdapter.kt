@@ -9,9 +9,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.watcha.R
-import com.example.watcha.api.DailyBoxOffice
-import com.example.watcha.api.Movie
-import com.example.watcha.api.TITLE
+import com.example.watcha.data.DailyBoxOffice
+import com.example.watcha.data.Movie
+import com.example.watcha.data.TITLE
 import kotlinx.android.synthetic.main.fragment_outer.view.*
 
 class OuterAdapter(
