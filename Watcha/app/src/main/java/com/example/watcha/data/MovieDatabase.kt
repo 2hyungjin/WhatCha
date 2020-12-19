@@ -4,6 +4,8 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.migration.Migration
+import androidx.sqlite.db.SupportSQLiteDatabase
 
 @Database(entities = [MovieEntity::class],version = 2)
 abstract class MovieDatabase : RoomDatabase(){
@@ -18,7 +20,8 @@ abstract class MovieDatabase : RoomDatabase(){
                         context.applicationContext,
                         MovieDatabase::class.java,
                         "db.db"
-                    ).build()
+                    ).addMigrations()
+                        .build()
                 }
             }
             return INSTANCE

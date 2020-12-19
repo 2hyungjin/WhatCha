@@ -1,5 +1,7 @@
 package com.example.watcha.Adapter
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,7 +10,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.watcha.R
+import com.example.watcha.data.MovieDatabase
 import com.example.watcha.data.MovieEntity
+import org.koin.java.KoinJavaComponent.inject
 
 class StarAdapter(
     val movieList: ArrayList<MovieEntity>,
@@ -25,9 +29,17 @@ class StarAdapter(
                 .into(img)
             tvTitle.text = movie.title
             tvDate.text = "${movie.date} 저장됨"
-//            view.setOnClickListener {
-//
-//            }
+            view.setOnClickListener {
+                val builder = AlertDialog.Builder(view.context).apply {
+                    setTitle("삭제하시겠습니까?")
+                    setPositiveButton("확인",
+                        DialogInterface.OnClickListener { Dialog, id ->
+                            delMovie.invoke(movie)
+                        })
+                    setNegativeButton("취소") { Dialog, id ->
+                    }
+                }.show()
+            }
         }
     }
 

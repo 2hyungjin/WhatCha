@@ -45,6 +45,9 @@ class StarFragment : Fragment() {
     }
 
     fun delMovie(movieEntity: MovieEntity) {
+        lifecycleScope.launch(Dispatchers.IO){
+            db.getDao().deleteMovie(movieEntity)
+        }
         movieList?.remove(movieEntity)
         rv_star.adapter?.notifyDataSetChanged()
     }

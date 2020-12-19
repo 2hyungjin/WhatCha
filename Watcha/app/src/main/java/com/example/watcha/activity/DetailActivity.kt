@@ -45,9 +45,9 @@ class DetailActivity : AppCompatActivity() {
         detail_btn_like.setOnClickListener {
             lifecycleScope.launch(Dispatchers.IO) {
                 db.getDao().insertMovie(MovieEntity(title!!, imgUrl!!,Time().getNow()))
-                Toast.makeText(this@DetailActivity, "즐겨찾기 목록에 추가되었습니다.", Toast.LENGTH_SHORT).show()
                 finish()
             }
+            Toast.makeText(this@DetailActivity, "즐겨찾기 목록에 추가되었습니다.", Toast.LENGTH_SHORT).show()
         }
 
     }
